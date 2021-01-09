@@ -10,8 +10,7 @@ import {fake} from  './mock'
 
 function App() {
   const [movies, setMovies]=useState()
-
-  console.log("mock--->",fake)
+  const [checkout, setCheckout]=useState([])
 
   useEffect(() => {
     setMovies(fake)
@@ -20,13 +19,20 @@ function App() {
     // .catch(err=>console.log(err))
   }, [])
 
+  const addItem=(item)=>{
+    setCheckout([...checkout, item])
+    console.log("I clicked this", item)
+  }
+
+
+
 
   return (
     <div className="App">
       <Navigation/>
       <Switch>
-      <Route exact path="/" render={()=><Home movies={movies}/>}/>
-      <Route path="/checkout" component={Checkout}/>
+      <Route exact path="/" render={()=><Home movies={movies} addItem={addItem}/>}/>
+      <Route path="/checkout" render={()=><Checkout checkout={checkout}/>}/>
       </Switch>
     </div>
   );
