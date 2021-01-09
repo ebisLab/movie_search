@@ -37,8 +37,8 @@ export default function Checkout({checkout, removeItem, confirmCheckout}) {
                 >Remove</div>
                 </div></div>)}
             <p>Total ${cartTotal()}</p>
-            <div style={{border:"1px solid black", height:"20px", width:"200px", position:"absolute", right:0, margin:"20px", cursor:"pointer"}}
-            onClick={()=>setIsOpen(true)}
+            <div style={checkout.length===0?{background:"grey",color:"darkgray", border:"1px solid black", height:"20px", width:"200px", position:"absolute", right:0, margin:"20px"}:{border:"1px solid black", height:"20px", width:"200px", position:"absolute", right:0, margin:"20px", cursor:"pointer"}}
+            onClick={()=>checkout.length>0&&setIsOpen(true)}
             >Checkout</div>
             <CheckoutModal customStyles={customStyles} isOpen={isOpen} setIsOpen={setIsOpen}/>
 
