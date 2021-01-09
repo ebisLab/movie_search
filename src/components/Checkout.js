@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react';
+import CheckoutModal from './CheckoutModal';
 
-export default function Checkout({checkout, removeItem}) {
-    console.log("checkout var", checkout)
+export default function Checkout({checkout, removeItem, confirmCheckout}) {
+    const [isOpen, setIsOpen]=useState(false)
     const cartTotal=()=>{
         return checkout.reduce((acc,val)=>{
             return acc+val.price
         }, 0).toFixed(2)
     }
+
+    const customStyles = {
+        content : {
+          top                   : '50%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)'
+        }
+      };
 
     return (
         <div>
@@ -25,7 +37,12 @@ export default function Checkout({checkout, removeItem}) {
                 >Remove</div>
                 </div></div>)}
             <p>Total ${cartTotal()}</p>
-            
+            <div style={{border:"1px solid black", height:"20px", width:"200px", position:"absolute", right:0, margin:"20px", cursor:"pointer"}}
+            onClick={()=>setIsOpen(true)}
+            >Checkout</div>
+            <CheckoutModal customStyles={customStyles} isOpen={isOpen} setIsOpen={setIsOpen}/>
+
+
         </div>
     )
 }

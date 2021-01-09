@@ -21,14 +21,14 @@ function App() {
 
   const addItem=(item)=>{
     setCheckout([...checkout, item])
-    console.log("I clicked this", item)
   }
 
   const removeItem=(item)=>{
     setCheckout(checkout.filter(movieitem=> item.id !== movieitem.id))
-    console.log("I removed this", item)
-    console.log("regular arr", checkout)
-    console.log("the array", checkout.filter(movieitem=> item.id !== movieitem.id))
+  }
+
+  const confirmCheckout=()=>{
+    console.log("im supposed to checkout")
   }
 
 
@@ -39,7 +39,7 @@ function App() {
       <Navigation checkout={checkout}/>
       <Switch>
       <Route exact path="/" render={()=><Home movies={movies} addItem={addItem}/>}/>
-      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem} />}/>
+      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem} confirmCheckout={confirmCheckout} />}/>
       </Switch>
     </div>
   );
