@@ -11,6 +11,7 @@ import {fake} from  './mock'
 function App() {
   const [movies, setMovies]=useState()
   const [checkout, setCheckout]=useState([])
+  const [searchText, setSearchText]=useState()
 
   useEffect(() => {
     setMovies(fake)
@@ -31,6 +32,17 @@ function App() {
     console.log("im supposed to checkout")
   }
 
+  const changeHandler=(e)=>{
+    setSearchText(e.target.value)
+    console.log("change handler", e.target.value)
+  }
+
+  const submitHandler=(e)=>{
+    e.preventDefault()
+    setSearchText(e.target.value)
+    console.log("submit handler", searchText)
+  }
+
 
 
 
@@ -38,8 +50,8 @@ function App() {
     <div className="App">
       <Navigation checkout={checkout}/>
       <Switch>
-      <Route exact path="/" render={()=><Home movies={movies} addItem={addItem}/>}/>
-      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem} confirmCheckout={confirmCheckout} />}/>
+      <Route exact path="/" render={()=><Home movies={movies} addItem={addItem} changeHandler={changeHandler} submitHandler={submitHandler} searchText={searchText}/>}/>
+      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem} confirmCheckout={confirmCheckout}  />}/>
       </Switch>
     </div>
   );

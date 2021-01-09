@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function Home({movies,addItem}) {
+export default function Home({movies,addItem,changeHandler, submitHandler, searchText}) {
     
     
     return (
         <div>
             <h2>Search</h2>
-            <form>
-                <input />
+            <form onSubmit={submitHandler}>
+                <input placeholder="Search Movie..." type="text" value={searchText|| ""} onChange={changeHandler}/>
                 <button>Search</button>
             </form>
         <div style={{display:"inline-flex"}}>
