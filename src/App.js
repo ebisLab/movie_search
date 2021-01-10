@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Checkout from './components/Checkout';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {fake} from  './mock'
 
 function App() {
   const [movies, setMovies]=useState()
@@ -13,11 +14,10 @@ function App() {
   const [searchText, setSearchText]=useState()
 
   useEffect(() => {
-    axios.get(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=wonder woman`)
-    .then(res=> {
-      setMovies(res.data.Search)
-    })
-    .catch(err=>console.log(err))
+    setMovies(fake)
+    // axios.get(fake)
+    // .then(res=> console.log("hello world"))
+    // .catch(err=>console.log(err))
   }, [])
 
   const addItem=(item)=>{
@@ -25,22 +25,22 @@ function App() {
   }
 
   const removeItem=(item)=>{
-    setCheckout(checkout.filter(movieitem=> item.imdbID !== movieitem.imdbID))
+    setCheckout(checkout.filter(movieitem=> item.id !== movieitem.id))
   }
 
+  const confirmCheckout=()=>{
+    console.log("im supposed to checkout")
+  }
 
   const changeHandler=(e)=>{
     setSearchText(e.target.value)
+    console.log("change handler", e.target.value)
   }
 
   const submitHandler=(e)=>{
     e.preventDefault()
     setSearchText(e.target.value)
-    axios.get(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${searchText}`)
-    .then(res=> {
-      setMovies(res.data.Search)
-    })
-    .catch(err=>console.log(err))
+    console.log("submit handler", searchText)
   }
 
 
@@ -51,7 +51,7 @@ function App() {
       <Navigation checkout={checkout}/>
       <Switch>
       <Route exact path="/" render={()=><Home movies={movies} addItem={addItem} changeHandler={changeHandler} submitHandler={submitHandler} searchText={searchText}/>}/>
-      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem}  />}/>
+      <Route path="/checkout" render={()=><Checkout checkout={checkout} removeItem={removeItem} confirmCheckout={confirmCheckout}  />}/>
       </Switch>
     </div>
   );
